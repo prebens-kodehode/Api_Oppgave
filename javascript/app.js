@@ -1,25 +1,5 @@
 import { getData } from "./data/api.js"
 
-
-
-/* https://pokeapi.co/api/v2/{endpoint}/
-
-{
-  "count": 248,
-  "next": "https://pokeapi.co/api/v2/ability/?limit=20&offset=20",
-  "previous": null,
-  "results": [
-    {
-      "name": "stench",
-      "url": "https://pokeapi.co/api/v2/ability/1/"
-    }
-  ]
-} */
-
-// html elements:
-// const mainContainer = document.querySelector("#main-container");
-// const navButtonHome = document.querySelector("#nav-index-btn");
-
 // API constants:
 const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
 
@@ -63,11 +43,4 @@ function renderPokemonList(pokemon) {
   pokemonWrapper.append(pokemonTitle, pokemonButton);
 
   mainContainer.append(pokemonWrapper);
-}
-
-async function getData(url) {
-  const request = await fetch(url);
-  const data = await request.json();
-
-  return data;
 }
