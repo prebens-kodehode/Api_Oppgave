@@ -1,6 +1,7 @@
-import { mainContainer } from "../htmlElements.js";
+import { cardWrapper } from "../htmlElements.js";
 import { makeElement } from "../utils/makeElement.js";
 import { typeGradients } from "../data/data.js";
+import { cardEventListeners } from "../utils/cardTilt.js";
 
 export function renderPokemonList(pokemon, details, colors) {
   const pokemonWrapper = makeElement("div", { className: "pokemon-card" });
@@ -53,5 +54,6 @@ export function renderPokemonList(pokemon, details, colors) {
     pokemonButton
   );
 
-  mainContainer.append(pokemonWrapper);
+  cardEventListeners(pokemonWrapper);
+  cardWrapper.append(pokemonWrapper);
 }

@@ -1,4 +1,4 @@
-import { mainContainer } from "../htmlElements.js";
+import { cardWrapper } from "../htmlElements.js";
 import { makeElement } from "../utils/makeElement.js";
 
 export function renderPokemonDetails(pokemon) {
@@ -21,5 +21,5 @@ export function renderPokemonDetails(pokemon) {
 
   wrapper.append(title, image, ...statsData); // ... pakker ut elementer fra arrray, og gjør det om til bare komma separerte verdier
 
-  mainContainer.append(wrapper);
+  cardWrapper.append(wrapper);
 }

@@ -1,1 +1,1 @@
-export const mainContainer = document.querySelector("main");
+export const cardWrapper = document.querySelector("#card-wrapper");

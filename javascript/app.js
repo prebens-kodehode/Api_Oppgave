@@ -1,12 +1,11 @@
 import { getData } from "./data/api.js";
 import { makeElement } from "./utils/makeElement.js";
-import { mainContainer } from "./htmlElements.js";
+import { cardWrapper } from "./htmlElements.js";
 import { renderPokemonDetails } from "./pages/pokemonDetails.js";
 import { renderPokemonList } from "./pages/pokemonList.js";
 
 // API constants:
 const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
-
 
 // navigation "state" (hvilken side?)
 let navState = "main";
@@ -40,7 +39,7 @@ let navState = "main";
 async function navigate(url) {
   const data = await getData(url);
 
-  mainContainer.innerHTML = "";
+  cardWrapper.innerHTML = "";
 
   if (navState === "main") {
     const pokemonList = data.results;
@@ -51,8 +50,7 @@ async function navigate(url) {
   } else {
     renderPokemonDetails(data);
   }
-  // console.log(data)
 }
 
 navState = "main";
-navigate("https://pokeapi.co/api/v2/pokemon/");
+navigate("https://pokeapi.co/api/v2/pokemon/?offset=6&limit=6");
