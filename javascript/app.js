@@ -3,8 +3,10 @@ import { makeElement } from "./utils/makeElement.js";
 import { mainContainer } from "./htmlElements.js";
 import { renderPokemonDetails } from "./pages/pokemonDetails.js";
 import { renderPokemonList } from "./pages/pokemonList.js";
+
 // API constants:
 const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
+
 
 // navigation "state" (hvilken side?)
 let navState = "main";
