@@ -18,14 +18,17 @@ function cardMouseEnter(event) {
 
 function cardMouseMove(event) {
   const card = event.currentTarget;
-  const cardWidth = card.offsetWidth;
-  const cardHeight = card.offsetHeight;
-  const centerX = card.offsetLeft + cardWidth / 2;
-  const centerY = card.offsetTop + cardHeight / 2;
-  const mouseX = event.clientX - centerX;
-  const mouseY = event.clientY - centerY;
-  const rotateX = (+1 * tiltEffectSettings.max * mouseY) / (cardHeight / 2);
-  const rotateY = (-1 * tiltEffectSettings.max * mouseX) / (cardWidth / 2);
+  const cardRect = card.getBoundingClientRect();
+  const cardCenterX = cardRect.left + card.offsetWidth / 2;
+  const cardCenterY = cardRect.top + card.offsetHeight / 2;
+
+  const mouseX = event.clientX - cardCenterX;
+  const mouseY = event.clientY - cardCenterY;
+
+  const rotateX =
+    (+1 * tiltEffectSettings.max * mouseY) / (card.offsetHeight / 2);
+  const rotateY =
+    (-1 * tiltEffectSettings.max * mouseX) / (card.offsetWidth / 2);
 
   card.style.transform = `perspective(${tiltEffectSettings.perspective}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) 
                           scale3d(${tiltEffectSettings.scale}, ${tiltEffectSettings.scale}, ${tiltEffectSettings.scale})`;

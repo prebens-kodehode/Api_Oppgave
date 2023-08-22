@@ -53,4 +53,4 @@ async function navigate(url) {
 }
 
 navState = "main";
-navigate("https://pokeapi.co/api/v2/pokemon/?offset=6&limit=6");
+navigate("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=25");
