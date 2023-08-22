@@ -1,5 +1,8 @@
-import { getData } from "./data/api.js"
-
+import { getData } from "./data/api.js";
+import { makeElement } from "./utils/makeElement.js";
+import { mainContainer } from "./htmlElements.js";
+import { renderPokemonDetails } from "./pages/pokemonDetails.js";
+import { renderPokemonList } from "./pages/pokemonList.js";
 // API constants:
 const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
 
@@ -12,35 +15,42 @@ let navState = "main";
 //   navigate(baseUrl);
 // });
 
-async function navigate(url) {
-  const data = await getData(url);
+// async function navigate(url) {
+//   const data = await getData(url);
 
-  // data.results.forEach((pokemon) => {
-  //   console.log(pokemon);
-  // });
-  console.log(data);
-}
+//   // data.results.forEach((pokemon) => {
+//   //   console.log(pokemon);
+//   // });
+//   const list = data.results;
+
+//   list.forEach(async (pokemon) => {
+//     const details = await getData(pokemon.url);
+//     renderPokemonList(pokemon, details);
+//     console.log(details);
+//     // details.forEach( (detail) => {
+//     //   console.log(detail.abilities);
+//     // });
+//   });
+// }
 
 // "https://pokeapi.co/api/v2/pokemon/1/"
 
-navState = "getDetails";
-navigate("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1281");
+async function navigate(url) {
+  const data = await getData(url);
 
-function renderPokemonList(pokemon) {
-  const pokemonWrapper = document.createElement("div");
-  const pokemonTitle = document.createElement("h3");
-  pokemonTitle.textContent = pokemon.name;
-  const pokemonButton = document.createElement("button");
-  pokemonButton.textContent = "Click for details";
+  mainContainer.innerHTML = "";
 
-  pokemonButton.addEventListener("click", () => {
-    navState = "details";
-    navigate(pokemon.url);
-  });
-
-  // pokemon.url
-
-  pokemonWrapper.append(pokemonTitle, pokemonButton);
-
-  mainContainer.append(pokemonWrapper);
+  if (navState === "main") {
+    const pokemonList = data.results;
+    pokemonList.forEach(async (pokemon) => {
+      const details = await getData(pokemon.url);
+      renderPokemonList(pokemon, details);
+    });
+  } else {
+    renderPokemonDetails(data);
+  }
+  // console.log(data)
 }
+
+navState = "main";
+navigate("https://pokeapi.co/api/v2/pokemon/");
