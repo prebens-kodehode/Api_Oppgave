@@ -18,6 +18,8 @@ function cardMouseEnter(event) {
 
 function cardMouseMove(event) {
   const card = event.currentTarget;
+
+  //card positions relative to viewport
   const cardRect = card.getBoundingClientRect();
 
   //calculates the mid point of the card
@@ -49,6 +51,7 @@ function cardMouseMove(event) {
   card.style.filter = `drop-shadow(${dropShadowY}rem ${dropShadowX}rem ${dropShadowBlur}rem rgb(32, 32, 32, 0.7))`;
 }
 
+//resets styling
 function cardMouseLeave(event) {
   event.currentTarget.style.transform = `perspective(${tiltEffectSettings.perspective}px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
   event.currentTarget.style.filter = `drop-shadow(0.3rem 0.3rem 0.6rem rgb(32, 32, 32, 0.7))`;

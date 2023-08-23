@@ -15,7 +15,6 @@ export function renderPokemonDetails(pokemon) {
     const statValue = makeElement("span", { textContent: base_stat });
 
     container.append(statName, statValue);
-    // console.log(pokemon.stats.map());
     return container;
   });
 
