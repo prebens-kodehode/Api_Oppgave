@@ -24,12 +24,16 @@ export function renderPokemonList(pokemon, details) {
   const imageContainer = makeElement("div", { className: "image-container" });
   imageContainer.style.background =
     typeGradients[details.types[0].type.name].image;
-  // imageContainer.style.transform = "translateZ(5rem)";
   const image = makeElement("img", {
     src: details.sprites.other.dream_world.front_default,
     className: "pokemon-image",
     alt: "pokemon-image",
   });
+
+  const sizeContainer = makeElement("div", { className: "size-container" });
+  const height = makeElement("p", { textContent: `Height: ${details.height}` });
+  const weight = makeElement("p", { textContent: `Weight: ${details.weight}` });
+  sizeContainer.append(height, weight);
 
   const pokemonDetails = details.stats.map(({ base_stat, stat }) => {
     const container = makeElement();
@@ -46,7 +50,7 @@ export function renderPokemonList(pokemon, details) {
     return container;
   });
 
-  pokemonStats.append(...pokemonDetails);
+  pokemonStats.append(sizeContainer, ...pokemonDetails);
   imageContainer.append(image);
   pokemonWrapper.append(
     pokemonTitle,
