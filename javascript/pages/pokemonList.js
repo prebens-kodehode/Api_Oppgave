@@ -24,6 +24,7 @@ export function renderPokemonList(pokemon, details) {
   const imageContainer = makeElement("div", { className: "image-container" });
   imageContainer.style.background =
     typeGradients[details.types[0].type.name].image;
+  // imageContainer.style.transform = "translateZ(5rem)";
   const image = makeElement("img", {
     src: details.sprites.other.dream_world.front_default,
     className: "pokemon-image",

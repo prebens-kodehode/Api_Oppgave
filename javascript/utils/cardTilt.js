@@ -36,11 +36,11 @@ function cardMouseMove(event) {
   const rotateY =
     (-1 * tiltEffectSettings.max * mouseX) / (card.offsetWidth / 2);
 
-  //moves the drop-shadow around according to the card tilt
+  //moves the drop-shadow around according to the card tilt (not very realistic , but better than a static shadow)
   const dropShadowX = Math.min(Math.max(rotateX * 0.15, -1), 1);
   const dropShadowY = Math.min(Math.max(rotateY * 0.15 * -1, -1), 1);
 
-  //increases drop-shadow blur(spread) according to how much the card tilts (this isn't really realistic, but looks better than no dynamic blur)
+  //increases drop-shadow blur(spread) according to how much the card tilts (this is also not very realistic)
   const dropShadowXPositive = Math.max(Math.abs(dropShadowX) * 1.3, 0.6);
   const dropShadowYPositive = Math.max(Math.abs(dropShadowY) * 1.3, 0.6);
   const dropShadowBlur = Math.max(dropShadowXPositive, dropShadowYPositive);

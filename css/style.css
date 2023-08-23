@@ -52,7 +52,7 @@ main {
 .pokemon-image {
   width: 9rem;
   height: 9rem;
-  transform: translateZ(150px);
+  transform: translateZ(1rem);
 }
 
 .pokemon-card {
