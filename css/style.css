@@ -53,7 +53,7 @@ main {
   align-items: center;
   justify-content: center;
   padding: 0.5rem 1rem;
-  box-shadow: 0.2rem 0.5rem 0.5rem rgba(32, 32, 32, 0.7);
+  filter: drop-shadow(0.3rem 0.3rem 0.6rem rgb(32, 32, 32, 0.7));
   border-radius: 0.7rem;
   color: rgb(15, 15, 15);
   transform-style: preserve-3d;
@@ -91,7 +91,7 @@ main {
 .pokemon-image,
 .pokemon-stats,
 .image-container {
-  transform: translateZ(0.75rem);
+  transform: translateZ(50px);
   filter: drop-shadow(0.15rem 0.3rem 0.3rem rgba(32, 32, 32, 0.7));
 }
 

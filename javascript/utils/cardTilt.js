@@ -30,21 +30,55 @@ function cardMouseMove(event) {
   const rotateY =
     (-1 * tiltEffectSettings.max * mouseX) / (card.offsetWidth / 2);
 
-  card.style.transform = `perspective(${tiltEffectSettings.perspective}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) 
-                          scale3d(${tiltEffectSettings.scale}, ${tiltEffectSettings.scale}, ${tiltEffectSettings.scale})`;
+  const dropShadowX = Math.min(Math.max(rotateX * 0.15, -1), 1);
+  const dropShadowY = Math.min(Math.max(rotateY * 0.15 * -1, -1), 1);
 
-  console.log(cardWidth, cardHeight);
+  // const dropShadowSpread = 0;
+  // const dropShadowXPositive = 0;
+  // const dropShadowYPositive = 0;
+  // if (dropShadowX > 0) {
+  //   dropShadowXPositive = dropShadowX;
+  // } else if (dropShadowX < 0) {
+  //   dropShadowXPositive = dropShadowX * -1;
+  // } else {
+  //   dropShadowXPositive = 0;
+  // }
+  // if (dropShadowY > 0) {
+  //   dropShadowYPositive = dropShadowY;
+  // } else if (dropShadowY < 0) {
+  //   dropShadowYPositive = dropShadowY * -1;
+  // } else {
+  //   dropShadowYPositive = 0;
+  // }
+
+  // if (dropShadowXPositive > dropShadowYPositive) {
+  //   dropShadowSpread = dropShadowXPositive;
+  // } else if (dropShadowXPositive < dropShadowYPositive) {
+  //   dropShadowSpread = dropShadowYPositive;
+  // } else {
+  //   dropShadowSpread = 0;
+  // }
+
+  const dropShadowXPositive = Math.max(Math.abs(dropShadowX) * 1.3, 0.6);
+  const dropShadowYPositive = Math.max(Math.abs(dropShadowY) * 1.3, 0.6);
+  const dropShadowSpread = Math.max(dropShadowXPositive, dropShadowYPositive);
+
+  card.style.transform = `perspective(${tiltEffectSettings.perspective}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) 
+                           scale3d(${tiltEffectSettings.scale}, ${tiltEffectSettings.scale}, ${tiltEffectSettings.scale})`;
+  card.style.filter = `drop-shadow(${dropShadowY}rem ${dropShadowX}rem ${dropShadowSpread}rem rgb(32, 32, 32, 0.7))`;
+  console.log(dropShadowSpread);
 }
 
 function cardMouseLeave(event) {
   event.currentTarget.style.transform = `perspective(${tiltEffectSettings.perspective}px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+  event.currentTarget.style.filter = `drop-shadow(0.3rem 0.3rem 0.6rem rgb(32, 32, 32, 0.7))`;
   setTransition(event);
 }
 
 function setTransition(event) {
   const card = event.currentTarget;
   clearTimeout(card.transitionTimeoutId);
-  card.style.transition = `transform ${tiltEffectSettings.speed}ms ${tiltEffectSettings.easing}`;
+  card.style.transition = `${tiltEffectSettings.speed}ms ${tiltEffectSettings.easing}`;
   card.transitionTimeoutId = setTimeout(() => {
     card.style.transition = "";
   }, tiltEffectSettings.speed);

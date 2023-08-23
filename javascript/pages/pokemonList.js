@@ -3,7 +3,7 @@ import { makeElement } from "../utils/makeElement.js";
 import { typeGradients } from "../data/data.js";
 import { cardEventListeners } from "../utils/cardTilt.js";
 
-export function renderPokemonList(pokemon, details, colors) {
+export function renderPokemonList(pokemon, details) {
   const pokemonWrapper = makeElement("div", { className: "pokemon-card" });
   pokemonWrapper.style.background =
     typeGradients[details.types[0].type.name].card;
