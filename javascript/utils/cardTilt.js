@@ -19,54 +19,34 @@ function cardMouseEnter(event) {
 function cardMouseMove(event) {
   const card = event.currentTarget;
   const cardRect = card.getBoundingClientRect();
+
+  //calculates the mid point of the card
   const cardCenterX = cardRect.left + card.offsetWidth / 2;
   const cardCenterY = cardRect.top + card.offsetHeight / 2;
 
+  //calculates mouse position relative to card center
   const mouseX = event.clientX - cardCenterX;
   const mouseY = event.clientY - cardCenterY;
 
+  //rotates card relative to mouse position
   const rotateX =
     (+1 * tiltEffectSettings.max * mouseY) / (card.offsetHeight / 2);
   const rotateY =
     (-1 * tiltEffectSettings.max * mouseX) / (card.offsetWidth / 2);
 
+  //moves the drop-shadow around according to the card tilt
   const dropShadowX = Math.min(Math.max(rotateX * 0.15, -1), 1);
   const dropShadowY = Math.min(Math.max(rotateY * 0.15 * -1, -1), 1);
 
-  // const dropShadowSpread = 0;
-  // const dropShadowXPositive = 0;
-  // const dropShadowYPositive = 0;
-  // if (dropShadowX > 0) {
-  //   dropShadowXPositive = dropShadowX;
-  // } else if (dropShadowX < 0) {
-  //   dropShadowXPositive = dropShadowX * -1;
-  // } else {
-  //   dropShadowXPositive = 0;
-  // }
-  // if (dropShadowY > 0) {
-  //   dropShadowYPositive = dropShadowY;
-  // } else if (dropShadowY < 0) {
-  //   dropShadowYPositive = dropShadowY * -1;
-  // } else {
-  //   dropShadowYPositive = 0;
-  // }
-
-  // if (dropShadowXPositive > dropShadowYPositive) {
-  //   dropShadowSpread = dropShadowXPositive;
-  // } else if (dropShadowXPositive < dropShadowYPositive) {
-  //   dropShadowSpread = dropShadowYPositive;
-  // } else {
-  //   dropShadowSpread = 0;
-  // }
-
+  //increases drop-shadow blur(spread) according to how much the card tilts (this isn't really realistic, but looks better than no dynamic blur)
   const dropShadowXPositive = Math.max(Math.abs(dropShadowX) * 1.3, 0.6);
   const dropShadowYPositive = Math.max(Math.abs(dropShadowY) * 1.3, 0.6);
-  const dropShadowSpread = Math.max(dropShadowXPositive, dropShadowYPositive);
+  const dropShadowBlur = Math.max(dropShadowXPositive, dropShadowYPositive);
 
+  //adds rotation and shadow to the cards
   card.style.transform = `perspective(${tiltEffectSettings.perspective}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) 
                            scale3d(${tiltEffectSettings.scale}, ${tiltEffectSettings.scale}, ${tiltEffectSettings.scale})`;
-  card.style.filter = `drop-shadow(${dropShadowY}rem ${dropShadowX}rem ${dropShadowSpread}rem rgb(32, 32, 32, 0.7))`;
-  console.log(dropShadowSpread);
+  card.style.filter = `drop-shadow(${dropShadowY}rem ${dropShadowX}rem ${dropShadowBlur}rem rgb(32, 32, 32, 0.7))`;
 }
 
 function cardMouseLeave(event) {
@@ -75,6 +55,7 @@ function cardMouseLeave(event) {
   setTransition(event);
 }
 
+//sets the mouse enter/exit transition effect
 function setTransition(event) {
   const card = event.currentTarget;
   clearTimeout(card.transitionTimeoutId);

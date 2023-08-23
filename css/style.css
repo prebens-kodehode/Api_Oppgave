@@ -18,15 +18,22 @@ body {
     #ffb151
   );
   scrollbar-gutter: stable;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 main {
   min-height: 100svh;
   width: 100svw;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   scrollbar-gutter: stable;
+}
+
+#pokemon-logo {
+  margin: 2rem 0 4rem 0;
+  filter: drop-shadow(0.3rem 0.3rem 0.6rem rgb(32, 32, 32, 0.7));
 }
 
 #card-wrapper {
@@ -44,6 +51,7 @@ main {
 .pokemon-image {
   width: 9rem;
   height: 9rem;
+  transform: translateZ(150px);
 }
 
 .pokemon-card {
@@ -91,7 +99,6 @@ main {
 .pokemon-image,
 .pokemon-stats,
 .image-container {
-  transform: translateZ(50px);
   filter: drop-shadow(0.15rem 0.3rem 0.3rem rgba(32, 32, 32, 0.7));
 }
 
@@ -102,10 +109,3 @@ p {
 button {
   opacity: 0;
 }
-
-/* transform-style: preserve-3d;
-  transform: perspective(1000px);
-}
-.card h1, .card h2 {
-  transform: translateZ(50px);
-} */
