@@ -7,48 +7,31 @@ import { renderPokemonList } from "./pages/pokemonList.js";
 // API constants:
 const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
 
-// navigation "state" (hvilken side?)
 let navState = "main";
 
-// Navigation events:
-// navButtonHome.addEventListener("click", () => {
-//   navState = "main";
-//   navigate(baseUrl);
-// });
-
-// async function navigate(url) {
-//   const data = await getData(url);
-
-//   // data.results.forEach((pokemon) => {
-//   //   console.log(pokemon);
-//   // });
-//   const list = data.results;
-
-//   list.forEach(async (pokemon) => {
-//     const details = await getData(pokemon.url);
-//     renderPokemonList(pokemon, details);
-//     console.log(details);
-//     // details.forEach( (detail) => {
-//     //   console.log(detail.abilities);
-//     // });
-//   });
-// }
-
-// "https://pokeapi.co/api/v2/pokemon/1/"
-
 async function navigate(url) {
-  const data = await getData(url);
+  try {
+    const data = await getData(url);
 
-  cardWrapper.innerHTML = "";
+    cardWrapper.innerHTML = "";
 
-  if (navState === "main") {
-    const pokemonList = data.results;
-    pokemonList.forEach(async (pokemon) => {
-      const details = await getData(pokemon.url);
-      renderPokemonList(pokemon, details);
-    });
-  } else {
-    renderPokemonDetails(data);
+    if (navState === "main") {
+      const pokemonList = data.results;
+      await Promise.all(
+        pokemonList.map(async (pokemon) => {
+          try {
+            const details = await getData(pokemon.url);
+            renderPokemonList(pokemon, details);
+          } catch (error) {
+            console.error("Error rendering pokemon list:", error);
+          }
+        })
+      );
+    } else {
+      renderPokemonDetails(data);
+    }
+  } catch (error) {
+    console.error("Error navigating:", error);
   }
 }
 
