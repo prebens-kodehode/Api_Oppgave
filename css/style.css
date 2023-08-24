@@ -20,8 +20,21 @@ body {
     #ffd698,
     #ffb151
   );
-  scrollbar-gutter: stable;
+  /* scrollbar-gutter: stable; */
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+header {
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  top: 0;
+  z-index: 2;
+  background: #fad99ca2;
+  box-shadow: 0 0.3rem 0.6rem rgb(32, 32, 32, 0.7);
+  backdrop-filter: blur(0.5rem) saturate(70%);
 }
 
 main {
@@ -30,10 +43,12 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 2rem;
 }
 
 #pokemon-logo {
-  margin: 2rem 0 4rem 0;
+  margin: 1rem 0;
+  height: 3rem;
   filter: drop-shadow(0.3rem 0.3rem 0.6rem rgb(32, 32, 32, 0.7));
 }
 
@@ -49,9 +64,8 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 19rem;
-  padding: 0.5rem 1rem;
-  filter: drop-shadow(0.3rem 0.3rem 0.6rem rgb(32, 32, 32, 0.7));
+  padding: 0.5rem 1rem 2rem 1rem;
+  box-shadow: 0.3rem 0.3rem 0.6rem rgb(32, 32, 32, 0.7);
   border-radius: 0.7rem;
   color: rgb(15, 15, 15);
   transform-style: preserve-3d;
@@ -86,7 +100,7 @@ main {
   background: hsl(39, 100%, 63%);
   padding: 0.1rem 0.7rem;
   border-radius: 0 0 0.3rem 0.3rem;
-  font-size: 0.8rem;
+  font-size: 0.65rem;
   font-weight: 600;
   margin: 0 0 1rem 0;
   box-shadow: 0.1rem 0.1rem 0.2rem hsla(0, 0%, 0%, 0.3);
@@ -98,7 +112,7 @@ main {
   width: 80%;
   gap: 0.25rem;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   padding: 0 1rem 0.5rem 1rem;
   border-radius: 0 0 0.5rem 0.5rem;
@@ -116,17 +130,8 @@ main {
 }
 
 .pokemon-title,
-.pokemon-image,
-.pokemon-stats,
-.image-container {
-  filter: drop-shadow(0.15rem 0.3rem 0.3rem rgba(32, 32, 32, 0.5));
+.image-container,
+.pokemon-stats {
+  box-shadow: 0.15rem 0.3rem 0.3rem rgba(32, 32, 32, 0.5);
   transform: translateZ(1rem);
-}
-
-p {
-  margin: 0;
-}
-
-button {
-  opacity: 0;
 }

@@ -1,5 +1,4 @@
 import { getData } from "./data/api.js";
-import { makeElement } from "./utils/makeElement.js";
 import { cardWrapper } from "./htmlElements.js";
 import { renderPokemonDetails } from "./pages/pokemonDetails.js";
 import { renderPokemonList } from "./pages/pokemonList.js";
@@ -17,16 +16,25 @@ async function navigate(url) {
 
     if (navState === "main") {
       const pokemonList = data.results;
-      await Promise.all(
-        pokemonList.map(async (pokemon) => {
-          try {
-            const details = await getData(pokemon.url);
-            renderPokemonList(pokemon, details);
-          } catch (error) {
-            console.error("Error rendering pokemon list:", error);
-          }
-        })
-      );
+
+      // creates an array of promises for fetching and rendering to avoid rendering pokemon in the wrong order
+      const renderingPromises = pokemonList.map(async (pokemon) => {
+        try {
+          const details = await getData(pokemon.url);
+          return { pokemon, details };
+        } catch (error) {
+          console.error("Error fetching details for:", pokemon.name, error);
+          return null;
+        }
+      });
+
+      // fetch and render in order
+      for (const renderingPromise of renderingPromises) {
+        const renderingData = await renderingPromise;
+        if (renderingData) {
+          renderPokemonList(renderingData.pokemon, renderingData.details);
+        }
+      }
     } else {
       renderPokemonDetails(data);
     }
@@ -36,4 +44,4 @@ async function navigate(url) {
 }
 
 navState = "main";
-navigate("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=386");
+navigate("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=180");

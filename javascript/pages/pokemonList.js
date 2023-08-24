@@ -12,14 +12,14 @@ export function renderPokemonList(pokemon, details) {
     className: "pokemon-title",
   });
   const pokemonStats = makeElement("div", { className: "pokemon-stats" });
-  const pokemonButton = makeElement("button", {
-    textContent: "Click for details",
-  });
+  // const pokemonButton = makeElement("button", {
+  //   textContent: "Click for details",
+  // });
 
-  pokemonButton.addEventListener("click", () => {
-    navState = "details";
-    navigate(pokemon.url);
-  });
+  // pokemonButton.addEventListener("click", () => {
+  //   navState = "details";
+  //   navigate(pokemon.url);
+  // });
 
   const imageContainer = makeElement("div", { className: "image-container" });
   imageContainer.style.background =
@@ -52,12 +52,7 @@ export function renderPokemonList(pokemon, details) {
 
   pokemonStats.append(sizeContainer, ...pokemonDetails);
   imageContainer.append(image);
-  pokemonWrapper.append(
-    pokemonTitle,
-    imageContainer,
-    pokemonStats,
-    pokemonButton
-  );
+  pokemonWrapper.append(pokemonTitle, imageContainer, pokemonStats);
 
   cardEventListeners(pokemonWrapper);
   cardWrapper.append(pokemonWrapper);
