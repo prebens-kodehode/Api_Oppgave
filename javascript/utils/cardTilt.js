@@ -1,7 +1,7 @@
 const tiltEffectSettings = {
   max: 20, // max tilt rotation(deg)
   perspective: 1000, // transform perspective(px)
-  scale: 1.05, // transform scale
+  scale: 1.1, // transform scale
   speed: 2000, // speed (transition-duration) of the enter/exit transition (ms)
   easing: "cubic-bezier(.03,.98,.52,.99)", // easing of the enter/exit transition
 };

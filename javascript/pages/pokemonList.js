@@ -7,6 +7,10 @@ export function renderPokemonList(pokemon, details) {
   const pokemonWrapper = makeElement("div", { className: "pokemon-card" });
   pokemonWrapper.style.background =
     typeGradients[details.types[0].type.name].card;
+
+    const pokemonTitleContainer = makeElement("h2", {
+      className: "pokemon-title-container"
+    })
   const pokemonTitle = makeElement("h2", {
     textContent: pokemon.name,
     className: "pokemon-title",
@@ -50,9 +54,10 @@ export function renderPokemonList(pokemon, details) {
     return container;
   });
 
+  pokemonTitleContainer.append(pokemonTitle)
   pokemonStats.append(sizeContainer, ...pokemonDetails);
   imageContainer.append(image);
-  pokemonWrapper.append(pokemonTitle, imageContainer, pokemonStats);
+  pokemonWrapper.append(pokemonTitleContainer, imageContainer, pokemonStats);
 
   cardEventListeners(pokemonWrapper);
   cardWrapper.append(pokemonWrapper);

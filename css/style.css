@@ -1,5 +1,5 @@
 :root {
-  font-size: 16px;
+  font-size: 15px;
 }
 
 *,
@@ -22,19 +22,35 @@ body {
   );
   /* scrollbar-gutter: stable; */
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  position: relative;
 }
 
 header {
   position: sticky;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  gap: 20px;
   align-items: center;
   width: 100%;
   top: 0;
-  z-index: 2;
+  z-index: 3;
   background: #fad99ca2;
   box-shadow: 0 0.3rem 0.6rem rgb(32, 32, 32, 0.7);
   backdrop-filter: blur(0.5rem) saturate(70%);
+}
+
+input {
+  justify-self: center;
+  border-radius: 50rem;
+  padding: 0.5rem;
+}
+
+#pokemon-logo {
+  justify-self: center;
+  margin: 1rem 0;
+  height: 3rem;
+  filter: drop-shadow(0.3rem 0.3rem 0.6rem rgb(32, 32, 32, 0.7));
 }
 
 main {
@@ -43,19 +59,15 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 2rem;
-}
-
-#pokemon-logo {
-  margin: 1rem 0;
-  height: 3rem;
-  filter: drop-shadow(0.3rem 0.3rem 0.6rem rgb(32, 32, 32, 0.7));
+  padding: 4rem 0;
 }
 
 #card-wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 3rem;
+  max-width: 80%;
 }
 
 .pokemon-card {
@@ -64,7 +76,7 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1rem 2rem 1rem;
+  padding: 1.5rem 1rem 2rem 1rem;
   box-shadow: 0.3rem 0.3rem 0.6rem rgb(32, 32, 32, 0.7);
   border-radius: 0.7rem;
   color: rgb(15, 15, 15);
@@ -73,13 +85,17 @@ main {
   text-shadow: 0.1rem 0.1rem 0.2rem hsla(0, 0%, 33%, 0.6);
 }
 
-.pokemon-title {
-  text-transform: capitalize;
-  text-align: left;
-  margin: 0.7rem auto 0 10%;
+.pokemon-title-container {
   background: hsl(39, 100%, 63%);
   padding: 0.1rem 1rem;
   border-radius: 0.5rem 0.5rem 0 0;
+  margin-left: 10%;
+  align-self: flex-start;
+}
+
+.pokemon-title {
+  text-transform: capitalize;
+  font-size: 1.5rem;
 }
 
 .image-container {
@@ -129,7 +145,28 @@ main {
   font-weight: 600;
 }
 
-.pokemon-title,
+#modal {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100svh;
+  width: 100svw;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.472);
+  backdrop-filter: blur(0.3rem);
+  z-index: 7;
+  visibility: hidden;
+}
+
+#info-wrapper {
+  background: white;
+  width: 70%;
+  height: 70%;
+}
+
+.pokemon-title-container,
 .image-container,
 .pokemon-stats {
   box-shadow: 0.15rem 0.3rem 0.3rem rgba(32, 32, 32, 0.5);
