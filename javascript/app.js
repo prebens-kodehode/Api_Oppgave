@@ -5,8 +5,11 @@ import { renderPokemonList } from "./pages/pokemonList.js";
 
 // API constants:
 const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
-const pokemonListURL = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151";
+const pokemonListURL = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=649";
+const itemsPerPage = 20; // Number of items to render per page
 let pokemonData = [];
+let currentPage = 1;
+let currentSearchResults = null; // Store the search results
 
 async function fetchPokemonDetails(url) {
   try {
@@ -18,18 +21,18 @@ async function fetchPokemonDetails(url) {
   }
 }
 
-async function fetchAndRenderPokemonList() {
+async function fetchAndRenderPokemonList(startIndex, endIndex) {
   try {
     const data = await getData(pokemonListURL);
     pokemonData = data.results;
 
     cardWrapper.innerHTML = "";
 
-    for (const pokemon of pokemonData) {
+    for (let i = startIndex; i < endIndex && i < pokemonData.length; i++) {
+      const pokemon = pokemonData[i];
       const details = await fetchPokemonDetails(pokemon.url);
       if (details) {
         renderPokemonList(pokemon, details);
-        console.log(details);
       }
     }
   } catch (error) {
@@ -37,40 +40,67 @@ async function fetchAndRenderPokemonList() {
   }
 }
 
-let searchTimeout;
+async function handlePagination(page) {
+  // Ensure currentPage doesn't go below 1
+  currentPage = Math.max(1, page);
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(pokemonData.length / itemsPerPage);
+
+  // Ensure currentPage doesn't exceed the total number of pages
+  currentPage = Math.min(currentPage, totalPages);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  if (currentSearchResults) {
+    renderSearchResults(currentSearchResults);
+  } else {
+    await fetchAndRenderPokemonList(startIndex, endIndex);
+  }
+}
+
+function renderSearchResults(results) {
+  cardWrapper.innerHTML = "";
+
+  Promise.all(
+    results.map(async (pokemon) => {
+      const details = await fetchPokemonDetails(pokemon.url);
+      if (details) {
+        renderPokemonList(pokemon, details);
+      }
+    })
+  );
+}
 
 async function handleSearch() {
   const searchTerm = searchInput.value.toLowerCase();
 
-  clearTimeout(searchTimeout);
-
   if (searchTerm.length > 0) {
-    searchTimeout = setTimeout(async () => {
-      const filteredPokemon = pokemonData.filter((pokemon) =>
-        pokemon.name.includes(searchTerm)
-      );
+    currentSearchResults = pokemonData.filter((pokemon) =>
+      pokemon.name.includes(searchTerm)
+    );
 
-      cardWrapper.innerHTML = "";
-
-      if (filteredPokemon.length > 0) {
-        for (const pokemon of filteredPokemon) {
-          const details = await fetchPokemonDetails(pokemon.url);
-          if (details) {
-            renderPokemonList(pokemon, details);
-          }
-        }
-      } else {
-        cardWrapper.innerHTML = "<h2>No matches found...</h2>";
-      }
-    }, 300);
+    renderSearchResults(currentSearchResults);
   } else {
-    fetchAndRenderPokemonList();
+    currentSearchResults = null;
+    handlePagination(currentPage);
   }
 }
 
+// Set up event listeners for pagination
+const previousPage = document.querySelector("#previous-page");
+const nextPage = document.querySelector("#next-page");
+
+previousPage.addEventListener("click", () => handlePagination(currentPage - 1));
+nextPage.addEventListener("click", () => handlePagination(currentPage + 1));
+
+// Set up event listener for search input
 searchInput.addEventListener("input", handleSearch);
 
-fetchAndRenderPokemonList();
+// Fetch initial data and render first page
+fetchAndRenderPokemonList(0, itemsPerPage);
+handlePagination(currentPage);
 
 // catchPokemon("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151");
 // catchPokemon("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=649");
