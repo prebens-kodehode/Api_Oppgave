@@ -1,5 +1,5 @@
 :root {
-  font-size: 15px;
+  font-size: 12px;
 }
 
 *,
@@ -83,6 +83,7 @@ main {
   transform-style: preserve-3d;
   transform: perspective(1000px);
   text-shadow: 0.1rem 0.1rem 0.2rem hsla(0, 0%, 33%, 0.6);
+  cursor: pointer;
 }
 
 .pokemon-title-container {
