@@ -10,16 +10,29 @@
   </head>
   <body>
     <header>
-      <input id="search-input" type="text" />
-      <div>
-        <button id="previous-page">last page</button>
-        <button id="next-page">next page</button>
-      </div>
       <img
         src="./images/International_Pokémon_logo.svg"
         alt="pokemon logo"
         id="pokemon-logo"
       />
+
+      <div id="page-buttons">
+        <img
+          src="./images/Pokemom_Arrow.svg"
+          alt="previous page arrow"
+          id="previous-page"
+          class="page-arrow"
+        />
+        <p id="page-index"></p>
+        <img
+          src="./images/Pokemom_Arrow.svg"
+          alt="next page arrow"
+          id="next-page"
+          class="page-arrow"
+        />
+      </div>
+
+      <input id="search-input" type="text" />
     </header>
     <main>
       <section id="card-wrapper"></section>

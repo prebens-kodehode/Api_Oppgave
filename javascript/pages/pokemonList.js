@@ -8,9 +8,9 @@ export function renderPokemonList(pokemon, details) {
   pokemonWrapper.style.background =
     typeGradients[details.types[0].type.name].card;
 
-    const pokemonTitleContainer = makeElement("h2", {
-      className: "pokemon-title-container"
-    })
+  const pokemonTitleContainer = makeElement("h2", {
+    className: "pokemon-title-container",
+  });
   const pokemonTitle = makeElement("h2", {
     textContent: pokemon.name,
     className: "pokemon-title",
@@ -54,11 +54,12 @@ export function renderPokemonList(pokemon, details) {
     return container;
   });
 
-  pokemonTitleContainer.append(pokemonTitle)
+  pokemonTitleContainer.append(pokemonTitle);
   pokemonStats.append(sizeContainer, ...pokemonDetails);
   imageContainer.append(image);
   pokemonWrapper.append(pokemonTitleContainer, imageContainer, pokemonStats);
 
   cardEventListeners(pokemonWrapper);
+  pokemonWrapper.classList.add("fade-in");
   cardWrapper.append(pokemonWrapper);
 }
