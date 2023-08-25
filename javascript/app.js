@@ -9,9 +9,10 @@ import {
 } from "./htmlElements.js";
 import { renderPokemonDetails } from "./pages/pokemonDetails.js";
 import { renderPokemonList } from "./pages/pokemonList.js";
+// import { fetchAbilityDetails } from "./utils/functions.js";
 
 // API constants:
-const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
+const pokemonsUrl = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=649";
 const itemsPerPage = 20;
 let pokemonDetailsData = []; // array to store details of all pokemon
 let currentPage = 1;
@@ -20,14 +21,12 @@ let isLoading = false;
 
 async function fetchAllPokemonDetails() {
   try {
-    const data = await getData(baseUrl + `?offset=0&limit=649`);
+    const data = await getData(pokemonsUrl);
     const detailsPromises = data.results.map((pokemon) => getData(pokemon.url));
     pokemonDetailsData = await Promise.all(detailsPromises);
     totalPages = Math.ceil(pokemonDetailsData.length / itemsPerPage);
   } catch (error) {
     console.error("Error fetching all Pokémon details:", error);
-  } finally {
-    console.log(pokemonDetailsData);
   }
 }
 
@@ -83,7 +82,7 @@ function handleSearch() {
         details.name.includes(searchTerm)
       );
       renderSearchResults(searchResults);
-    }, 100);
+    }, 250);
   } else {
     handlePage(currentPage);
   }

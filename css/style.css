@@ -199,7 +199,16 @@ main {
   background: rgba(0, 0, 0, 0.472);
   backdrop-filter: blur(0.3rem);
   z-index: 7;
+}
+
+.modal-visible {
+  visibility: visible;
+  pointer-events: all;
+}
+
+.modal-hidden {
   visibility: hidden;
+  pointer-events: none;
 }
 
 #info-wrapper {
@@ -216,7 +225,10 @@ main {
 }
 
 .fade-in {
-  animation: fade-in 500ms linear;
+  animation: fade-in 500ms ease-in;
+}
+.fade-out {
+  animation: fade-out 500ms ease-in;
 }
 .hidden {
   opacity: 0;
@@ -239,5 +251,24 @@ main {
   100% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
   }
 }

@@ -1,7 +1,8 @@
 import { cardWrapper } from "../htmlElements.js";
-import { makeElement } from "../utils/makeElement.js";
+import { makeElement } from "../utils/functions.js";
 import { typeGradients } from "../data/data.js";
 import { tiltEventListeners } from "../utils/cardTilt.js";
+import { detailsEventListeners } from "./pokemonDetails.js";
 
 export function renderPokemonList(pokemon) {
   const pokemonWrapper = makeElement("div", { className: "pokemon-card" });
@@ -16,7 +17,6 @@ export function renderPokemonList(pokemon) {
     textContent: pokemon.name,
     className: "pokemon-title",
   });
-  const pokemonStats = makeElement("div", { className: "pokemon-stats" });
 
   const imageContainer = makeElement("div", { className: "image-container" });
   imageContainer.style.background =
@@ -24,8 +24,10 @@ export function renderPokemonList(pokemon) {
   const image = makeElement("img", {
     src: pokemon.sprites.other.dream_world.front_default,
     className: "pokemon-image",
-    alt: "pokemon-image",
+    alt: `${pokemon.name}`,
   });
+
+  const pokemonStats = makeElement("div", { className: "pokemon-stats" });
 
   const sizeContainer = makeElement("div", { className: "size-container" });
   const height = makeElement("p", { textContent: `Height: ${pokemon.height}` });
@@ -53,6 +55,8 @@ export function renderPokemonList(pokemon) {
   pokemonWrapper.append(pokemonTitleContainer, imageContainer, pokemonStats);
 
   tiltEventListeners(pokemonWrapper);
+  detailsEventListeners(pokemonWrapper, pokemon);
+
   pokemonWrapper.classList.add("fade-in");
   cardWrapper.append(pokemonWrapper);
 }
