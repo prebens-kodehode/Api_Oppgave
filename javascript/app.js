@@ -25,6 +25,7 @@ async function fetchAndRenderPokemonList(startIndex, endIndex) {
   try {
     const data = await getData(pokemonListURL);
     pokemonData = data.results;
+    console.log(pokemonData);
 
     cardWrapper.innerHTML = "";
 
@@ -40,7 +41,7 @@ async function fetchAndRenderPokemonList(startIndex, endIndex) {
   }
 }
 
-async function handlePagination(page) {
+async function handlePage(page) {
   // Ensure currentPage doesn't go below 1
   currentPage = Math.max(1, page);
 
@@ -84,7 +85,7 @@ async function handleSearch() {
     renderSearchResults(currentSearchResults);
   } else {
     currentSearchResults = null;
-    handlePagination(currentPage);
+    handlePage(currentPage);
   }
 }
 
@@ -92,15 +93,17 @@ async function handleSearch() {
 const previousPage = document.querySelector("#previous-page");
 const nextPage = document.querySelector("#next-page");
 
-previousPage.addEventListener("click", () => handlePagination(currentPage - 1));
-nextPage.addEventListener("click", () => handlePagination(currentPage + 1));
+previousPage.addEventListener("click", () => handlePage(currentPage - 1));
+nextPage.addEventListener("click", () => handlePage(currentPage + 1));
 
 // Set up event listener for search input
 searchInput.addEventListener("input", handleSearch);
 
 // Fetch initial data and render first page
-fetchAndRenderPokemonList(0, itemsPerPage);
-handlePagination(currentPage);
+(async () => {
+  await fetchAndRenderPokemonList(0, itemsPerPage);
+  handlePage(currentPage);
+})();
 
 // catchPokemon("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151");
 // catchPokemon("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=649");
