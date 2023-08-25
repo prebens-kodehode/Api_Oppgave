@@ -211,7 +211,7 @@ main {
 }
 
 .fade-in {
-  animation: fade-in 500ms ease-in;
+  animation: fade-in 1000ms ease-in;
 }
 
 @keyframes fade-in {
