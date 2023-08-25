@@ -114,7 +114,7 @@ async function handleSearch() {
         pokemon.name.includes(searchTerm)
       );
       renderSearchResults(currentSearchResults);
-    }, 200);
+    }, 300);
   } else {
     currentSearchResults = null;
     handlePage(currentPage);
@@ -125,8 +125,16 @@ async function handleSearch() {
 const previousPage = document.querySelector("#previous-page");
 const nextPage = document.querySelector("#next-page");
 
-previousPage.addEventListener("click", () => handlePage(currentPage - 1));
-nextPage.addEventListener("click", () => handlePage(currentPage + 1));
+previousPage.addEventListener("click", () => {
+  if (currentPage > 1) {
+    handlePage(currentPage - 1);
+  }
+});
+nextPage.addEventListener("click", () => {
+  if (currentPage < totalPages) {
+    handlePage(currentPage + 1);
+  }
+});
 
 // Set up event listener for search input
 searchInput.addEventListener("input", handleSearch);
