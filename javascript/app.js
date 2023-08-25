@@ -1,129 +1,93 @@
 import { getData } from "./data/api.js";
-import { cardWrapper, searchInput, pageIndex } from "./htmlElements.js";
+import {
+  cardWrapper,
+  searchInput,
+  pageIndex,
+  previousPage,
+  nextPage,
+  pageButtons,
+} from "./htmlElements.js";
 import { renderPokemonDetails } from "./pages/pokemonDetails.js";
 import { renderPokemonList } from "./pages/pokemonList.js";
 
 // API constants:
 const baseUrl = "https://pokeapi.co/api/v2/pokemon/";
-const pokemonListURL = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=649";
 const itemsPerPage = 20;
-let pokemonData = [];
+let pokemonDetailsData = []; // array to store details of all pokemon
 let currentPage = 1;
 let totalPages = "";
-let currentSearchResults = null;
-let isLoading = false; // Flag to prevent overlapping fetch/render operations
+let isLoading = false;
 
-async function fetchPokemonDetails(url) {
+async function fetchAllPokemonDetails() {
   try {
-    const details = await getData(url);
-    return details;
+    const data = await getData(baseUrl + `?offset=0&limit=649`);
+    const detailsPromises = data.results.map((pokemon) => getData(pokemon.url));
+    pokemonDetailsData = await Promise.all(detailsPromises);
+    totalPages = Math.ceil(pokemonDetailsData.length / itemsPerPage);
   } catch (error) {
-    console.error("Error fetching details:", error);
-    return null;
+    console.error("Error fetching all Pokémon details:", error);
+  } finally {
+    console.log(pokemonDetailsData);
   }
 }
 
-async function fetchAndRenderPokemonList(startIndex, endIndex) {
-  try {
-    const data = await getData(pokemonListURL);
-    pokemonData = data.results;
-    totalPages = Math.ceil(pokemonData.length / itemsPerPage);
-    pageIndex.textContent = `${currentPage}/${totalPages}`;
-    cardWrapper.innerHTML = "";
+function renderPokemonCards(startIndex, endIndex) {
+  cardWrapper.innerHTML = "";
 
-    for (let i = startIndex; i < endIndex && i < pokemonData.length; i++) {
-      const pokemon = pokemonData[i];
-      const details = await fetchPokemonDetails(pokemon.url);
-      if (details) {
-        renderPokemonList(pokemon, details);
-      }
-    }
-  } catch (error) {
-    console.error("Error fetching Pokemon list:", error);
+  for (let i = startIndex; i < endIndex && i < pokemonDetailsData.length; i++) {
+    renderPokemonList(pokemonDetailsData[i]);
   }
 }
 
-async function handlePage(page) {
-  if (isLoading) {
-    return; // Return early if a fetch/render operation is in progress
-  }
+function handlePage(page) {
+  if (isLoading) return;
 
   currentPage = Math.min(Math.max(1, page), totalPages);
   pageIndex.textContent = `${currentPage}/${totalPages}`;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-
-  if (currentSearchResults) {
-    renderSearchResults(currentSearchResults);
-  } else {
-    await renderPageItems(startIndex, endIndex);
-  }
-}
-
-async function renderPageItems(startIndex, endIndex) {
-  isLoading = true;
-
-  try {
-    const data = await getData(pokemonListURL);
-    pokemonData = data.results;
-    totalPages = Math.ceil(pokemonData.length / itemsPerPage);
-    pageIndex.textContent = `${currentPage}/${totalPages}`;
-    cardWrapper.innerHTML = "";
-
-    for (let i = startIndex; i < endIndex && i < pokemonData.length; i++) {
-      const pokemon = pokemonData[i];
-      const details = await fetchPokemonDetails(pokemon.url);
-      if (details) {
-        renderPokemonList(pokemon, details);
-      }
-    }
-  } catch (error) {
-    console.error("Error fetching Pokemon list:", error);
-  } finally {
-    isLoading = false;
-  }
+  renderPokemonCards(startIndex, endIndex);
 }
 
 function renderSearchResults(results) {
   cardWrapper.innerHTML = "";
 
   if (results && results.length > 0) {
-    Promise.all(
-      results.map((pokemon) => fetchPokemonDetails(pokemon.url))
-    ).then((detailsArray) => {
-      detailsArray.forEach((details, index) => {
-        if (details) {
-          renderPokemonList(results[index], details);
-        }
-      });
+    results.forEach((details) => {
+      renderPokemonList(details);
     });
   } else {
     cardWrapper.innerHTML = "<h2>No pokemon matches your search...</h2>";
   }
 }
 
-let searchTimeout;
-
-async function handleSearch() {
-  clearTimeout(searchTimeout); // Clear any previous timeouts
-  const searchTerm = searchInput.value.toLowerCase();
-
+function updateIndexVisibility(searchTerm) {
   if (searchTerm.length > 0) {
-    searchTimeout = setTimeout(async () => {
-      currentSearchResults = pokemonData.filter((pokemon) =>
-        pokemon.name.includes(searchTerm)
-      );
-      renderSearchResults(currentSearchResults);
-    }, 300);
+    pageButtons.classList.add("hidden");
   } else {
-    currentSearchResults = null;
-    handlePage(currentPage);
+    pageButtons.classList.remove("hidden");
   }
 }
 
-// Set up event listeners for pagination
-const previousPage = document.querySelector("#previous-page");
-const nextPage = document.querySelector("#next-page");
+let searchTimeout;
+
+function handleSearch() {
+  clearTimeout(searchTimeout);
+  const searchTerm = searchInput.value.toLowerCase();
+
+  updateIndexVisibility(searchTerm); // adjust visibility based on search term
+
+  if (searchTerm.length > 0) {
+    searchTimeout = setTimeout(() => {
+      const searchResults = pokemonDetailsData.filter((details) =>
+        details.name.includes(searchTerm)
+      );
+      renderSearchResults(searchResults);
+    }, 100);
+  } else {
+    handlePage(currentPage);
+  }
+}
 
 previousPage.addEventListener("click", () => {
   if (currentPage > 1) {
@@ -136,8 +100,12 @@ nextPage.addEventListener("click", () => {
   }
 });
 
-// Set up event listener for search input
 searchInput.addEventListener("input", handleSearch);
 
-// Fetch initial data and render first page
-fetchAndRenderPokemonList(0, itemsPerPage);
+// fetch initial data and render first page
+async function initializeApp() {
+  await fetchAllPokemonDetails();
+  handlePage(1);
+}
+
+initializeApp();

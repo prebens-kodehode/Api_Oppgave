@@ -1,12 +1,13 @@
 import { cardWrapper } from "../htmlElements.js";
 import { makeElement } from "../utils/makeElement.js";
 import { typeGradients } from "../data/data.js";
-import { cardEventListeners } from "../utils/cardTilt.js";
+import { tiltEventListeners } from "../utils/cardTilt.js";
 
-export function renderPokemonList(pokemon, details) {
+export function renderPokemonList(pokemon) {
   const pokemonWrapper = makeElement("div", { className: "pokemon-card" });
+  pokemonWrapper.dataset.name = pokemon.name;
   pokemonWrapper.style.background =
-    typeGradients[details.types[0].type.name].card;
+    typeGradients[pokemon.types[0].type.name].card;
 
   const pokemonTitleContainer = makeElement("h2", {
     className: "pokemon-title-container",
@@ -16,30 +17,22 @@ export function renderPokemonList(pokemon, details) {
     className: "pokemon-title",
   });
   const pokemonStats = makeElement("div", { className: "pokemon-stats" });
-  // const pokemonButton = makeElement("button", {
-  //   textContent: "Click for details",
-  // });
-
-  // pokemonButton.addEventListener("click", () => {
-  //   navState = "details";
-  //   navigate(pokemon.url);
-  // });
 
   const imageContainer = makeElement("div", { className: "image-container" });
   imageContainer.style.background =
-    typeGradients[details.types[0].type.name].image;
+    typeGradients[pokemon.types[0].type.name].image;
   const image = makeElement("img", {
-    src: details.sprites.other.dream_world.front_default,
+    src: pokemon.sprites.other.dream_world.front_default,
     className: "pokemon-image",
     alt: "pokemon-image",
   });
 
   const sizeContainer = makeElement("div", { className: "size-container" });
-  const height = makeElement("p", { textContent: `Height: ${details.height}` });
-  const weight = makeElement("p", { textContent: `Weight: ${details.weight}` });
+  const height = makeElement("p", { textContent: `Height: ${pokemon.height}` });
+  const weight = makeElement("p", { textContent: `Weight: ${pokemon.weight}` });
   sizeContainer.append(height, weight);
 
-  const pokemonDetails = details.stats.map(({ base_stat, stat }) => {
+  const pokemonDetails = pokemon.stats.map(({ base_stat, stat }) => {
     const container = makeElement();
     const statName = makeElement("p", {
       textContent: stat.name,
@@ -59,7 +52,7 @@ export function renderPokemonList(pokemon, details) {
   imageContainer.append(image);
   pokemonWrapper.append(pokemonTitleContainer, imageContainer, pokemonStats);
 
-  cardEventListeners(pokemonWrapper);
+  tiltEventListeners(pokemonWrapper);
   pokemonWrapper.classList.add("fade-in");
   cardWrapper.append(pokemonWrapper);
 }

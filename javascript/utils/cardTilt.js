@@ -6,7 +6,7 @@ const tiltEffectSettings = {
   easing: "cubic-bezier(.03,.98,.52,.99)", // easing of the enter/exit transition
 };
 
-export function cardEventListeners(card) {
+export function tiltEventListeners(card) {
   card.addEventListener("mouseenter", cardMouseEnter);
   card.addEventListener("mousemove", cardMouseMove);
   card.addEventListener("mouseleave", cardMouseLeave);

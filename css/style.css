@@ -41,7 +41,7 @@ input {
 
 .search img {
   width: 1rem;
-  opacity: .6;
+  opacity: 0.6;
 }
 .search {
   justify-self: start;
@@ -61,12 +61,13 @@ input {
   justify-content: space-between;
   align-items: center;
   width: 10rem;
+  transition: all 1000ms;
 }
 
 .page-arrow {
   width: 2.5rem;
   height: 2.5rem;
-  transition: transform 500ms;
+  transition: all 500ms;
   cursor: pointer;
   filter: drop-shadow(0 0.1rem 0.1rem rgb(32, 32, 32));
 }
@@ -215,20 +216,28 @@ main {
 }
 
 .fade-in {
-  animation: fade-in 1000ms ease-in;
+  animation: fade-in 500ms linear;
+}
+.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 @keyframes fade-in {
   0% {
-    /* opacity: 0; */
-    visibility: hidden;
+    opacity: 0;
+    transform: scale(0.8);
   }
   25% {
-    /* opacity: 0; */
-    visibility: hidden;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  75% {
+    opacity: 1;
   }
   100% {
-    /* opacity: 1; */
-    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
   }
 }
