@@ -1,5 +1,12 @@
 import { getData } from "../data/api.js";
 
+/**
+ * Creates a DOM element of the specified type and sets its properties based on the provided props object.
+ *
+ * @param {string} [type="div"] - The type of DOM element to create.
+ * @param {Object} [props={}] - An object containing properties to set on the created element. Keys are property names and values are the property values.
+ * @returns {Element} - The created DOM element with assigned properties.
+ */
 export function makeElement(type = "div", props = {}) {
   const element = document.createElement(type);
   Object.entries(props).forEach(([key, value]) => (element[key] = value)); // convert props object into an array, then destructure the array into key value pairs, and assign these properties to the elements
@@ -38,4 +45,21 @@ export async function fetchAbilityDetails(pokemon) {
   } catch (error) {
     console.error("Error fetching and processing ability details:", error);
   }
+}
+
+/**
+ * update classes of a DOM element by adding or removing specific class names.
+ *
+ * @param {Element} element - the DOM element to update.
+ * @param {string[]} [add=[]] - an array of class names to add to the element.
+ * @param {string[]} [remove=[]] - an array of class names to remove from the element.
+ * @returns {void}
+ */
+export function updateClasses(element, add = [], remove = []) {
+  add.forEach((cls) => element.classList.add(cls));
+  remove.forEach((cls) => element.classList.remove(cls));
+}
+
+export function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }

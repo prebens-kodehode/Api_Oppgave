@@ -1,23 +1,37 @@
-import { modal, modalInfoWrapper } from "../htmlElements.js";
-import { fetchAbilityDetails, makeElement } from "../utils/functions.js";
+import { modal, modalContainer } from "../htmlElements.js";
+import {
+  fetchAbilityDetails,
+  makeElement,
+  updateClasses,
+  delay,
+} from "../utils/functions.js";
 import { typeGradients } from "../data/data.js";
+import { tiltEventListeners } from "../utils/cardTilt.js";
 
 export function detailsEventListeners(card, pokemon) {
   card.addEventListener("click", () => {
     renderPokemonDetails(pokemon);
-
-    modalInfoWrapper.classList.remove("fade-out");
-    modalInfoWrapper.classList.add("fade-in");
-    modal.classList.remove("modal-hidden");
-    modal.classList.add("modal-visible");
+    updateClasses(modalContainer, ["fade-in"], ["fade-out"]);
+    updateClasses(modal, ["modal-visible"], ["modal-fade-out", "modal-hidden"]);
   });
 }
 
+modal.addEventListener("click", async () => {
+  updateClasses(modalContainer, ["fade-out"], ["fade-in"]);
+  modal.classList.add("modal-fade-out");
+
+  await delay(1000);
+  updateClasses(modal, ["modal-hidden"], ["modal-visible"]);
+});
+
 export async function renderPokemonDetails(pokemon) {
-  modalInfoWrapper.style.background =
+  modalContainer.style.background =
     typeGradients[pokemon.types[0].type.name].card;
 
-  const pokemonTitle = makeElement("h1", { textContent: pokemon.name });
+  const pokemonTitle = makeElement("h1", {
+    textContent: pokemon.name,
+    className: "modal-title",
+  });
 
   const imageContainer = makeElement("div", {
     className: "modal-image-container",
@@ -49,7 +63,7 @@ export async function renderPokemonDetails(pokemon) {
       textContent: type.name,
       className: "type",
     });
-    typeName.style.background = typeGradients[type.name].image;
+    typeName.style.background = typeGradients[type.name].solidColor;
     container.append(typeName);
 
     return container;
@@ -57,30 +71,37 @@ export async function renderPokemonDetails(pokemon) {
 
   typeContainer.append(typeTitle, ...pokemonTypes);
 
+  const statsContainer = makeElement("div", {
+    className: "modal-stats-container",
+  });
+  const statsTitle = makeElement("h3", { textContent: "Base Stats:" });
+
   const pokemonDetails = pokemon.stats.map(({ base_stat, stat }) => {
     const container = makeElement();
     const statName = makeElement("p", {
       textContent: stat.name,
-      className: "modal-stat-name",
+      className: "stat-name",
     });
     const statValue = makeElement("p", {
       textContent: base_stat,
-      className: "modal-base-stat",
+      className: "base-stat",
     });
     container.append(statName, statValue);
 
     return container;
   });
 
+  statsContainer.append(statsTitle, ...pokemonDetails);
+
   const abilityContainer = makeElement("div", {
     className: "ability-container",
   });
 
-  try {
-    // 1. Retrieve Ability Details:
-    const abilitiesDetails = await fetchAbilityDetails(pokemon); // <-- await the asynchronous function
+  const abilitiesTitle = makeElement("h1", { textContent: "Abilities:" });
 
-    // 2. Render Ability Details:
+  try {
+    const abilitiesDetails = await fetchAbilityDetails(pokemon);
+
     const abilitiesElements = abilitiesDetails.map(({ name, short_effect }) => {
       const abilityDiv = makeElement();
       const abilityName = makeElement("h2", { textContent: name });
@@ -89,19 +110,20 @@ export async function renderPokemonDetails(pokemon) {
       return abilityDiv;
     });
 
-    abilityContainer.append(...abilitiesElements);
+    abilityContainer.append(abilitiesTitle, ...abilitiesElements);
   } catch (error) {
     console.error("Error rendering ability details:", error);
   }
-  // retrieve data from fetchAbilityDetails(pokemon) here (or a better suited spot) and make an h2 element with the ability name and
-  // a p element with the short_effect and then append each of those to a div for each ability and lastly append those divs to abilityContainer
-  modalInfoWrapper.innerHTML = "";
-  modalInfoWrapper.append(
-    pokemonTitle,
-    imageContainer,
-    typeContainer,
+  const infoWrapper = makeElement("div", {
+    className: "info-wrapper",
+  });
+  infoWrapper.append(
     sizeContainer,
-    ...pokemonDetails,
+    typeContainer,
+    statsContainer,
     abilityContainer
-  ); // ... pakker ut elementer fra arrray, og gjør det om til bare komma separerte verdier
+  );
+  modalContainer.innerHTML = "";
+  tiltEventListeners(modalContainer);
+  modalContainer.append(pokemonTitle, imageContainer, infoWrapper);
 }

@@ -57,6 +57,6 @@ export function renderPokemonList(pokemon) {
   tiltEventListeners(pokemonWrapper);
   detailsEventListeners(pokemonWrapper, pokemon);
 
-  pokemonWrapper.classList.add("fade-in");
+  pokemonWrapper.classList.add("card-fade-in");
   cardWrapper.append(pokemonWrapper);
 }
