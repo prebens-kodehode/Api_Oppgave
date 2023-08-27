@@ -14,6 +14,18 @@ export function makeElement(type = "div", props = {}) {
   return element;
 }
 
+/**
+ * Fetches and processes the details of a pokemon's abilities.
+ *
+ * This function extracts the ability URLs from the given pokemon object,
+ * fetches data for each ability, and then maps the raw ability data to
+ * an array of objects containing the name and short effect (in English) of each ability.
+ *
+ * @param {Object} pokemon - The pokemon object containing ability data.
+ * @param {Array} pokemon.abilities - An array of ability objects associated with the pokemon.
+ * @returns {Promise<Array<{name: string, short_effect: string}>>} An array of objects with each object containing the name and short effect of an ability. Returns an empty array if an error occurs.
+ * @throws {Error} Throws an error if there's an issue fetching or processing the ability details.
+ */
 export async function fetchAbilityDetails(pokemon) {
   try {
     // extract the ability URLs from the Pokémon object
@@ -60,10 +72,21 @@ export function updateClasses(element, add = [], remove = []) {
   remove.forEach((cls) => element.classList.remove(cls));
 }
 
+/**
+ * returns a promise that resolves after the specified number of milliseconds.
+ *
+ * @param {number} ms - number of milliseconds to wait.
+ * @returns {Promise<void>} promise that resolves after the specified delay.
+ */
 export function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+/**
+ * fades out all elements with the class "pokemon-card" and waits for 500ms.
+ *
+ * @returns {Promise<void>} promise that resolves after the fade out and delay have completed.
+ */
 export async function cardsFadeOut() {
   const pokemonCards = document.querySelectorAll(".pokemon-card");
   pokemonCards.forEach((card) => {

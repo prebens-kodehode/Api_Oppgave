@@ -40,6 +40,7 @@ async function renderPokemonCards(startIndex, endIndex) {
   }
 }
 
+// handles page navigation
 function handlePage(page) {
   if (isLoading) return;
   currentPage = Math.min(Math.max(1, page), totalPages);
@@ -49,6 +50,7 @@ function handlePage(page) {
   renderPokemonCards(startIndex, endIndex);
 }
 
+// renders search results or a message if none found
 async function renderSearchResults(results) {
   await cardsFadeOut();
   cardWrapper.innerHTML = "";
@@ -73,6 +75,7 @@ function updateIndexVisibility(searchTerm) {
 
 let searchTimeout;
 
+// handle search input and filter results
 function handleSearch() {
   //debouncing to avoid constantly rendering new cards as you type
   clearTimeout(searchTimeout);

@@ -8,6 +8,7 @@ import {
 import { typeGradients } from "../data/data.js";
 import { tiltEventListeners } from "../utils/cardTilt.js";
 
+// adds event listener to a card to show pokemon details on click
 export function detailsEventListeners(card, pokemon) {
   card.addEventListener("click", () => {
     renderPokemonDetails(pokemon);
@@ -16,6 +17,7 @@ export function detailsEventListeners(card, pokemon) {
   });
 }
 
+// handle modal click to close and hide pokemon details
 modal.addEventListener("click", async () => {
   updateClasses(modalContainer, ["fade-out"], ["fade-in"]);
   modal.classList.add("modal-fade-out");
@@ -24,15 +26,18 @@ modal.addEventListener("click", async () => {
   updateClasses(modal, ["modal-hidden"], ["modal-visible"]);
 });
 
+// render the detailed information of a pokemon in a modal
 export async function renderPokemonDetails(pokemon) {
   modalContainer.style.background =
     typeGradients[pokemon.types[0].type.name].card;
 
+  // create title element for pokemon
   const pokemonTitle = makeElement("h1", {
     textContent: pokemon.name,
     className: "modal-title",
   });
 
+  // create and style image container for pokemon sprite
   const imageContainer = makeElement("div", {
     className: "modal-image-container",
   });
@@ -47,6 +52,7 @@ export async function renderPokemonDetails(pokemon) {
 
   imageContainer.append(image);
 
+  // create container for size details (height and weight)
   const sizeContainer = makeElement("div", {
     className: "modal-size-container",
   });
@@ -54,6 +60,7 @@ export async function renderPokemonDetails(pokemon) {
   const weight = makeElement("p", { textContent: `Weight: ${pokemon.weight}` });
   sizeContainer.append(height, weight);
 
+  // create container for type details
   const typeContainer = makeElement("div", { className: "type-container" });
   const typeTitle = makeElement("h2", { textContent: "Type" });
 
@@ -71,6 +78,7 @@ export async function renderPokemonDetails(pokemon) {
 
   typeContainer.append(typeTitle, ...pokemonTypes);
 
+  // create container for pokemon base stats
   const statsContainer = makeElement("div", {
     className: "modal-stats-container",
   });
@@ -93,12 +101,13 @@ export async function renderPokemonDetails(pokemon) {
 
   statsContainer.append(statsTitle, ...pokemonDetails);
 
+  // create container for ability details
   const abilityContainer = makeElement("div", {
     className: "ability-container",
   });
 
   const abilitiesTitle = makeElement("h1", { textContent: "Abilities:" });
-
+  // fetch and append ability details
   try {
     const abilitiesDetails = await fetchAbilityDetails(pokemon);
 
@@ -114,6 +123,8 @@ export async function renderPokemonDetails(pokemon) {
   } catch (error) {
     console.error("Error rendering ability details:", error);
   }
+
+  // wrapper for all information elements
   const infoWrapper = makeElement("div", {
     className: "info-wrapper",
   });
@@ -123,6 +134,7 @@ export async function renderPokemonDetails(pokemon) {
     statsContainer,
     abilityContainer
   );
+  // refresh modal container and append new details
   modalContainer.innerHTML = "";
   tiltEventListeners(modalContainer);
   modalContainer.append(pokemonTitle, imageContainer, infoWrapper);
