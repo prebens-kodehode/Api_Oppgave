@@ -63,3 +63,11 @@ export function updateClasses(element, add = [], remove = []) {
 export function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+export async function cardsFadeOut() {
+  const pokemonCards = document.querySelectorAll(".pokemon-card");
+  pokemonCards.forEach((card) => {
+    updateClasses(card, ["card-fade-out"], ["card-fade-in"]);
+  });
+  await delay(500);
+}

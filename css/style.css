@@ -212,7 +212,7 @@ main {
   color: hsl(27, 100%, 14%);
   background: hsla(0, 0%, 0%, 0.472);
   backdrop-filter: blur(0.3rem);
-  z-index: 2;
+  z-index: 5;
   cursor: pointer;
 }
 
@@ -234,7 +234,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 30rem;
+  width: 35rem;
   padding: 2rem;
   border-radius: 1rem;
   text-shadow: 0.1rem 0.1rem 0.2rem hsla(0, 0%, 33%, 0.6);
@@ -244,6 +244,7 @@ main {
   box-shadow: 0.4rem 0.4rem 1rem hsla(0, 0%, 13%, 0.9);
   transform-style: preserve-3d;
   transform: perspective(1000px);
+  transition: all 500ms;
 }
 
 .modal-title {
@@ -292,7 +293,7 @@ main {
   background: hsl(39, 100%, 63%);
   padding: 0.1rem 0.7rem;
   border-radius: 0 0 0.3rem 0.3rem;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.5rem 0;
   box-shadow: 0.1rem 0.1rem 0.2rem hsla(0, 0%, 0%, 0.3);
 }
 
@@ -305,10 +306,11 @@ main {
 .type-container h2 {
   width: 100%;
   text-align: center;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .type {
+  font-size: 1rem;
   text-align: center;
   width: 5rem;
   padding: 0.2rem 0.5rem;
@@ -323,7 +325,7 @@ main {
 }
 
 .modal-stats-container h3 {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
 }
 
 .modal-stats-container p {
@@ -333,31 +335,42 @@ main {
 .modal-stats-container div {
   display: flex;
   justify-content: space-between;
+  margin: auto 0.5rem;
 }
 
 .ability-container div {
   margin: 0.3rem 0;
 }
 
+.ability-container h1 {
+  font-size: 1.3rem;
+}
+
 .ability-container h2 {
   font-size: 1.1rem;
+  margin: auto 0.5rem;
 }
 
 .ability-container p {
   font-size: 0.9rem;
   color: hsl(30, 100%, 25%);
   text-transform: none;
+  margin: auto 0.5rem;
 }
 
 /* animation selectors */
 .card-fade-in {
   animation: card-fade-in 500ms ease-in;
 }
+.card-fade-out {
+  animation: card-fade-out 600ms ease-in;
+}
+
 .fade-in {
-  animation: translate-in 1000ms ease-in forwards;
+  animation: translate-in 1000ms ease-in;
 }
 .fade-out {
-  animation: translate-out 1000ms ease-out forwards;
+  animation: translate-out 1000ms ease-out;
 }
 .hidden {
   opacity: 0;
@@ -379,11 +392,11 @@ main {
 @keyframes card-fade-in {
   0% {
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale(0) rotate(180deg) rotateY(180deg);
   }
   25% {
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale(0) rotate(180deg) rotateY(180deg);
   }
 
   75% {
@@ -391,7 +404,22 @@ main {
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) rotate(0) rotateY(0);
+  }
+}
+
+@keyframes card-fade-out {
+  0% {
+    opacity: 1;
+    transform: scale(1) rotate(0) rotateY(0);
+  }
+
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg) rotateY(-180deg);
   }
 }
 

@@ -8,6 +8,7 @@ import {
   pageButtons,
 } from "./htmlElements.js";
 import { renderPokemonList } from "./pages/pokemonList.js";
+import { updateClasses, delay, cardsFadeOut } from "./utils/functions.js";
 
 // API constants:
 const pokemonsUrl = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=649";
@@ -30,7 +31,8 @@ async function fetchAllPokemonDetails() {
 }
 
 // renders the list of pokemon cards based on the current page
-function renderPokemonCards(startIndex, endIndex) {
+async function renderPokemonCards(startIndex, endIndex) {
+  await cardsFadeOut();
   cardWrapper.innerHTML = "";
 
   for (let i = startIndex; i < endIndex && i < pokemonDetailsData.length; i++) {
@@ -40,7 +42,6 @@ function renderPokemonCards(startIndex, endIndex) {
 
 function handlePage(page) {
   if (isLoading) return;
-
   currentPage = Math.min(Math.max(1, page), totalPages);
   pageIndex.textContent = `${currentPage}/${totalPages}`;
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -48,7 +49,8 @@ function handlePage(page) {
   renderPokemonCards(startIndex, endIndex);
 }
 
-function renderSearchResults(results) {
+async function renderSearchResults(results) {
+  await cardsFadeOut();
   cardWrapper.innerHTML = "";
 
   if (results && results.length > 0) {
