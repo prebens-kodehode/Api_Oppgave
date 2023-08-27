@@ -124,9 +124,6 @@ main {
   box-shadow: var(--shadow-dark);
   border-radius: 0.7rem;
   color: var(--main-color);
-  transform-style: preserve-3d;
-  transform: perspective(1000px);
-  text-shadow: 0.1rem 0.1rem 0.2rem hsla(0, 0%, 33%, 0.6);
   cursor: pointer;
 }
 
@@ -153,6 +150,8 @@ main {
 .pokemon-image {
   width: 9rem;
   height: 9rem;
+  transform: translateZ(0.6rem);
+  filter: drop-shadow(0.3rem 0.3rem 0.3rem hsla(0, 0%, 13%, 0.5));
 }
 
 .size-container {
@@ -165,7 +164,7 @@ main {
   font-size: 0.65rem;
   font-weight: 600;
   margin: 0 0 1rem 0;
-  box-shadow: 0.1rem 0.1rem 0.2rem hsla(0, 0%, 0%, 0.3);
+  box-shadow: 0.15rem 0.15rem 0.3rem hsla(0, 0%, 0%, 0.6);
 }
 
 .pokemon-stats {
@@ -225,19 +224,16 @@ main {
   width: 35rem;
   padding: 2rem;
   border-radius: 1rem;
-  text-shadow: 0.1rem 0.1rem 0.2rem hsla(0, 0%, 33%, 0.6);
+  /* text-shadow: 0.1rem 0.1rem 0.2rem hsla(0, 0%, 33%, 0.6); */
   font-weight: 600;
   text-transform: capitalize;
   margin: 2rem;
   box-shadow: 0.4rem 0.4rem 1rem hsla(0, 0%, 13%, 0.9);
-  transform-style: preserve-3d;
-  transform: perspective(1000px);
   transition: all 500ms;
 }
 
-.modal-title {
+.modal-title-container {
   align-self: start;
-  font-size: 2rem;
   background: hsl(39, 100%, 63%);
   outline: solid 0.1rem hsl(39, 100%, 63%);
   padding: 0.1rem 1rem;
@@ -246,9 +242,15 @@ main {
   width: fit-content;
 }
 
+.modal-title {
+  font-size: 2rem;
+}
+
 .modal-image {
   width: 12rem;
   height: 12rem;
+  transform: translateZ(1rem);
+  filter: drop-shadow(0.3rem 0.3rem 0.3rem hsla(0, 0%, 13%, 0.7));
 }
 
 .modal-image-container {
@@ -286,11 +288,13 @@ main {
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.5rem;
+  transform: translateZ(0.7rem);
 }
 .type-container h2 {
   width: 100%;
   text-align: center;
   font-size: 1.2rem;
+  filter: drop-shadow(0.15rem 0.15rem 0.15rem hsla(0, 0%, 13%, 0.7));
 }
 
 .type {
@@ -300,7 +304,7 @@ main {
   padding: 0.2rem 0.5rem;
   color: rgb(255, 255, 255);
   border-radius: 0.3rem;
-  box-shadow: 0.15rem 0.15rem 0.3rem hsla(0, 0%, 13%, 0.75);
+  filter: drop-shadow(0.3rem 0.3rem 0.3rem hsla(0, 0%, 13%, 0.7));
 }
 
 .modal-stats-container {
@@ -374,10 +378,44 @@ main,
   align-items: center;
 }
 
+.pokemon-card,
+.pokemon-title-container,
+.image-container,
+.size-container,
+.pokemon-stats,
+.pokemon-stats div,
+#modal-container,
+.modal-title-container,
+.modal-image-container,
+.info-wrapper,
+.modal-size-container,
+.modal-stats-container,
+.modal-stats-container div,
+.ability-container {
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+}
+
+.pokemon-title,
+.pokemon-stats p {
+  transform: translateZ(0.3rem);
+  filter: drop-shadow(0.15rem 0.15rem 0.15rem hsla(0, 0%, 13%, 0.6));
+}
+
+.modal-title,
+.modal-size-container p,
+.modal-stats-container h3,
+.modal-stats-container p,
+.ability-container div,
+.ability-container h1 {
+  transform: translateZ(0.7rem);
+  filter: drop-shadow(0.15rem 0.15rem 0.15rem hsla(0, 0%, 13%, 0.6));
+}
+
 .pokemon-title-container,
 .image-container,
 .pokemon-stats,
-.modal-title,
+.modal-title-container,
 .modal-image-container,
 .info-wrapper {
   box-shadow: var(--shadow-light);
@@ -453,10 +491,6 @@ main,
 
 @keyframes translate-in {
   0% {
-    transform: translateY(-100vh) translateX(-100vw) rotate(-180deg) scale(0)
-      rotateX(360deg);
-  }
-  25% {
     transform: translateY(-100vh) translateX(-100vw) rotate(-180deg) scale(0)
       rotateX(360deg);
   }

@@ -32,10 +32,14 @@ export async function renderPokemonDetails(pokemon) {
     typeGradients[pokemon.types[0].type.name].card;
 
   // create title element for pokemon
+  const pokemonTitleContainer = makeElement("div", {
+    className: "modal-title-container",
+  });
   const pokemonTitle = makeElement("h1", {
     textContent: pokemon.name,
     className: "modal-title",
   });
+  pokemonTitleContainer.append(pokemonTitle);
 
   // create and style image container for pokemon sprite
   const imageContainer = makeElement("div", {
@@ -137,5 +141,5 @@ export async function renderPokemonDetails(pokemon) {
   // refresh modal container and append new details
   modalContainer.innerHTML = "";
   tiltEventListeners(modalContainer);
-  modalContainer.append(pokemonTitle, imageContainer, infoWrapper);
+  modalContainer.append(pokemonTitleContainer, imageContainer, infoWrapper);
 }
