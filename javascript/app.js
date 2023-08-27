@@ -7,9 +7,7 @@ import {
   nextPage,
   pageButtons,
 } from "./htmlElements.js";
-import { renderPokemonDetails } from "./pages/pokemonDetails.js";
 import { renderPokemonList } from "./pages/pokemonList.js";
-// import { fetchAbilityDetails } from "./utils/functions.js";
 
 // API constants:
 const pokemonsUrl = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=649";
@@ -19,6 +17,7 @@ let currentPage = 1;
 let totalPages = "";
 let isLoading = false;
 
+// fetches all pokemon details and stores them in an array
 async function fetchAllPokemonDetails() {
   try {
     const data = await getData(pokemonsUrl);
@@ -30,6 +29,7 @@ async function fetchAllPokemonDetails() {
   }
 }
 
+// renders the list of pokemon cards based on the current page
 function renderPokemonCards(startIndex, endIndex) {
   cardWrapper.innerHTML = "";
 
@@ -56,10 +56,11 @@ function renderSearchResults(results) {
       renderPokemonList(details);
     });
   } else {
-    cardWrapper.innerHTML = "<h2>No pokemon matches your search...</h2>";
+    cardWrapper.innerHTML = "<h2>No Pokémon matches your search...</h2>";
   }
 }
 
+// toggles visibility of page buttons if a search term is entered or not
 function updateIndexVisibility(searchTerm) {
   if (searchTerm.length > 0) {
     pageButtons.classList.add("hidden");
@@ -71,10 +72,11 @@ function updateIndexVisibility(searchTerm) {
 let searchTimeout;
 
 function handleSearch() {
+  //debouncing to avoid constantly rendering new cards as you type
   clearTimeout(searchTimeout);
   const searchTerm = searchInput.value.toLowerCase();
 
-  updateIndexVisibility(searchTerm); // adjust visibility based on search term
+  updateIndexVisibility(searchTerm);
 
   if (searchTerm.length > 0) {
     searchTimeout = setTimeout(() => {
@@ -88,6 +90,7 @@ function handleSearch() {
   }
 }
 
+//page navigation
 previousPage.addEventListener("click", () => {
   if (currentPage > 1) {
     handlePage(currentPage - 1);
