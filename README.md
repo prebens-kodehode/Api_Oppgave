@@ -1,7 +1,7 @@
 # Pokedex
 
-A simple web-based Pokedex to explore Pokémon in card form.
-PokeAPI is used to fetch data.
+A simple web-based Pokédex to explore Pokémon in card form.
+PokéAPI is used to fetch data.
 
 ## Features
 
