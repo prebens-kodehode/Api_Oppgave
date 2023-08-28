@@ -36,6 +36,12 @@ export function renderPokemonList(pokemon) {
   const height = makeElement("p", { textContent: `Height: ${pokemon.height}` });
   const weight = makeElement("p", { textContent: `Weight: ${pokemon.weight}` });
   sizeContainer.append(height, weight);
+  // pokemon id
+  const pokemonNumber = makeElement("p", {
+    className: "pokemon-number",
+    textContent: `# ${pokemon.id}`,
+  });
+
   // base stats data
   const pokemonDetails = pokemon.stats.map(({ base_stat, stat }) => {
     const container = makeElement();
@@ -54,7 +60,7 @@ export function renderPokemonList(pokemon) {
 
   // assembling elements together
   pokemonTitleContainer.append(pokemonTitle);
-  pokemonStats.append(sizeContainer, ...pokemonDetails);
+  pokemonStats.append(sizeContainer, pokemonNumber, ...pokemonDetails);
   imageContainer.append(image);
   pokemonWrapper.append(pokemonTitleContainer, imageContainer, pokemonStats);
 
