@@ -233,7 +233,7 @@ main {
 
 #modal-container {
   flex-direction: column;
-  width: 35rem;
+  width: 30rem;
   padding: 2rem;
   border-radius: 1rem;
   font-weight: 600;
@@ -274,7 +274,7 @@ main {
 
 .info-wrapper {
   flex-direction: column;
-  width: 85%;
+  width: 88%;
   padding: 0 1.5rem 1rem 1.5rem;
   border-radius: 0 0 0.5rem 0.5rem;
   margin: 0;
@@ -305,12 +305,12 @@ main {
   width: 100%;
   text-align: center;
   font-size: 1rem;
-  text-shadow: 0.15rem 0.15rem 0.15rem hsla(0, 0%, 13%, 0.4);
+  text-shadow: 0.15rem 0.15rem 0.15rem hsla(0, 0%, 13%, 0.3);
 }
 
 .type {
   text-align: center;
-  width: 6rem;
+  width: 5rem;
   padding: 0.2rem 0.5rem;
   font-size: 0.9rem;
   color: rgb(255, 255, 255);
@@ -324,12 +324,12 @@ main {
 }
 
 .modal-stats-container h3 {
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .modal-stats-container p {
   color: hsl(30, 100%, 25%);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .modal-stats-container div {
@@ -347,16 +347,16 @@ main {
 }
 
 .ability-container h1 {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .ability-container h2 {
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin: auto 0.5rem;
 }
 
 .ability-container p {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: hsl(30, 100%, 25%);
   text-transform: none;
   margin: auto 0.5rem;
@@ -425,7 +425,7 @@ main,
 .ability-container div,
 .ability-container h1 {
   transform: translateZ(0.7rem);
-  text-shadow: 0.15rem 0.15rem 0.15rem hsla(0, 0%, 13%, 0.4);
+  text-shadow: 0.15rem 0.15rem 0.15rem hsla(0, 0%, 13%, 0.3);
 }
 
 .pokemon-title-container,
