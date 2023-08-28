@@ -26,6 +26,8 @@ modal.addEventListener("click", async () => {
   updateClasses(modal, ["modal-hidden"], ["modal-visible"]);
 });
 
+tiltEventListeners(modalContainer);
+
 // render the detailed information of a pokemon in a modal
 export async function renderPokemonDetails(pokemon) {
   modalContainer.style.background =
@@ -90,7 +92,7 @@ export async function renderPokemonDetails(pokemon) {
   const statsContainer = makeElement("div", {
     className: "modal-stats-container",
   });
-  const statsTitle = makeElement("h3", { textContent: "Base Stats:" });
+  const statsTitle = makeElement("h3", { textContent: "Base Stats" });
 
   const pokemonDetails = pokemon.stats.map(({ base_stat, stat }) => {
     const container = makeElement();
@@ -114,7 +116,7 @@ export async function renderPokemonDetails(pokemon) {
     className: "ability-container",
   });
 
-  const abilitiesTitle = makeElement("h1", { textContent: "Abilities:" });
+  const abilitiesTitle = makeElement("h1", { textContent: "Abilities" });
   // fetch and append ability details
   try {
     const abilitiesDetails = await fetchAbilityDetails(pokemon);
@@ -144,6 +146,6 @@ export async function renderPokemonDetails(pokemon) {
   );
   // refresh modal container and append new details
   modalContainer.innerHTML = "";
-  tiltEventListeners(modalContainer);
+
   modalContainer.append(pokemonTitleContainer, imageContainer, infoWrapper);
 }

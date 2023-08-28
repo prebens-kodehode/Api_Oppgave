@@ -132,6 +132,7 @@ main {
   border-radius: 0.7rem;
   color: var(--main-color);
   cursor: pointer;
+  will-change: transform;
 }
 
 .pokemon-title-container {
@@ -233,7 +234,7 @@ main {
 
 #modal-container {
   flex-direction: column;
-  width: 30rem;
+  width: 28rem;
   padding: 2rem;
   border-radius: 1rem;
   font-weight: 600;
@@ -241,6 +242,7 @@ main {
   margin: 2rem;
   box-shadow: 0.4rem 0.4rem 1rem hsla(0, 0%, 13%, 0.9);
   transition: all 500ms;
+  will-change: transform;
 }
 
 .modal-title-container {
@@ -321,6 +323,9 @@ main {
 .modal-stats-container {
   width: 100%;
   margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .modal-stats-container h3 {
@@ -330,16 +335,19 @@ main {
 .modal-stats-container p {
   color: hsl(30, 100%, 25%);
   font-size: 0.8rem;
+  text-transform: uppercase;
 }
 
 .modal-stats-container div {
   display: flex;
   justify-content: space-between;
   margin: auto 0.5rem;
+  width: 80%;
 }
 
 .ability-container {
-  align-self: start;
+  display: flex;
+  flex-direction: column;
 }
 
 .ability-container div {
@@ -348,6 +356,7 @@ main {
 
 .ability-container h1 {
   font-size: 1rem;
+  align-self: center;
 }
 
 .ability-container h2 {
