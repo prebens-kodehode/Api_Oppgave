@@ -89,7 +89,7 @@ function handleSearch() {
         details.name.includes(searchTerm)
       );
       renderSearchResults(searchResults);
-    }, 250);
+    }, 500);
   } else {
     handlePage(currentPage);
   }

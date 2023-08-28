@@ -254,12 +254,12 @@ main {
 }
 
 .modal-title {
-  font-size: 2rem;
+  font-size: 1.7rem;
 }
 
 .modal-image {
-  width: 12rem;
-  height: 12rem;
+  width: 10rem;
+  height: 10rem;
   transform: translateZ(1rem);
   filter: drop-shadow(0.3rem 0.3rem 0.3rem hsla(0, 0%, 13%, 0.7));
 }
@@ -274,7 +274,7 @@ main {
 
 .info-wrapper {
   flex-direction: column;
-  width: 80%;
+  width: 85%;
   padding: 0 1.5rem 1rem 1.5rem;
   border-radius: 0 0 0.5rem 0.5rem;
   margin: 0;
@@ -286,7 +286,7 @@ main {
   justify-content: space-between;
   width: 90%;
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   background: hsl(39, 100%, 63%);
   padding: 0.1rem 0.7rem;
   border-radius: 0 0 0.3rem 0.3rem;
@@ -304,7 +304,7 @@ main {
 .type-container h2 {
   width: 100%;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-shadow: 0.15rem 0.15rem 0.15rem hsla(0, 0%, 13%, 0.4);
 }
 
@@ -312,6 +312,7 @@ main {
   text-align: center;
   width: 6rem;
   padding: 0.2rem 0.5rem;
+  font-size: 0.9rem;
   color: rgb(255, 255, 255);
   border-radius: 0.3rem;
   box-shadow: 0.15rem 0.15rem 0.3rem hsla(0, 0%, 13%, 0.4);
@@ -323,11 +324,12 @@ main {
 }
 
 .modal-stats-container h3 {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 
 .modal-stats-container p {
   color: hsl(30, 100%, 25%);
+  font-size: 0.9rem;
 }
 
 .modal-stats-container div {
@@ -345,11 +347,11 @@ main {
 }
 
 .ability-container h1 {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 .ability-container h2 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin: auto 0.5rem;
 }
 

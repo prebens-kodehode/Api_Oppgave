@@ -62,7 +62,11 @@ export async function renderPokemonDetails(pokemon) {
   });
   const height = makeElement("p", { textContent: `Height: ${pokemon.height}` });
   const weight = makeElement("p", { textContent: `Weight: ${pokemon.weight}` });
-  sizeContainer.append(height, weight);
+  const pokemonNumber = makeElement("p", {
+    className: "pokemon-number",
+    textContent: `# ${pokemon.id}`,
+  });
+  sizeContainer.append(height, pokemonNumber, weight);
 
   // create container for type details
   const typeContainer = makeElement("div", { className: "type-container" });
