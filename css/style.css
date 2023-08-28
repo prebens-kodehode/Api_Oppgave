@@ -294,7 +294,8 @@ main {
   width: 100%;
   text-align: center;
   font-size: 1.2rem;
-  filter: drop-shadow(0.15rem 0.15rem 0.15rem hsla(0, 0%, 13%, 0.7));
+  /* filter: drop-shadow(0.15rem 0.15rem 0.15rem hsla(0, 0%, 13%, 0.7)); */
+  text-shadow: 0.15rem 0.15rem 0.15rem hsla(0, 0%, 13%, 0.7);
 }
 
 .type {
@@ -304,7 +305,8 @@ main {
   padding: 0.2rem 0.5rem;
   color: rgb(255, 255, 255);
   border-radius: 0.3rem;
-  filter: drop-shadow(0.15rem 0.15rem 0.3rem hsla(0, 0%, 13%, 0.6));
+  /* filter: drop-shadow(0.15rem 0.15rem 0.3rem hsla(0, 0%, 13%, 0.6)); */
+  box-shadow: 0.15rem 0.15rem 0.3rem hsla(0, 0%, 13%, 0.6);
 }
 
 .modal-stats-container {
@@ -403,7 +405,7 @@ main,
 .pokemon-title,
 .pokemon-stats p {
   transform: translateZ(0.3rem);
-  filter: drop-shadow(0.15rem 0.15rem 0.15rem hsla(0, 0%, 13%, 0.6));
+  text-shadow: 0.15rem 0.15rem 0.15rem hsla(0, 0%, 13%, 0.6);
 }
 
 .modal-title,
@@ -413,7 +415,7 @@ main,
 .ability-container div,
 .ability-container h1 {
   transform: translateZ(0.7rem);
-  filter: drop-shadow(0.15rem 0.15rem 0.15rem hsla(0, 0%, 13%, 0.6));
+  text-shadow: 0.15rem 0.15rem 0.15rem hsla(0, 0%, 13%, 0.6);
 }
 
 .pokemon-title-container,
