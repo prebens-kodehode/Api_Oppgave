@@ -1,4 +1,5 @@
 import { getData } from "../data/api.js";
+import { cardWrapper } from "../htmlElements.js";
 
 /**
  * Creates a DOM element of the specified type and sets its properties based on the provided props object.
@@ -93,4 +94,14 @@ export async function cardsFadeOut() {
     updateClasses(card, ["card-fade-out"], ["card-fade-in"]);
   });
   await delay(500);
+}
+
+export function loadingAnimation() {
+  const loadingSvg = makeElement("img", {
+    src: "./images/Poké_Ball.svg",
+    id: "loading-svg",
+  });
+
+  cardWrapper.innerHTML = "";
+  cardWrapper.append(loadingSvg);
 }

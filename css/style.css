@@ -108,6 +108,13 @@ main {
   padding: 4rem 0;
 }
 
+#loading-svg {
+  width: 10rem;
+  height: 10rem;
+  margin: 5rem auto;
+  animation: spin 500ms infinite linear;
+}
+
 #card-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -508,6 +515,12 @@ main,
   100% {
     transform: translateY(-100vh) translateX(100vw) rotate(180deg) scale(0.3)
       rotateX(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
   }
 }
 

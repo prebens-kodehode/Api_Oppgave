@@ -7,7 +7,6 @@ import { detailsEventListeners } from "./pokemonDetails.js";
 export function renderPokemonList(pokemon) {
   // create main pokemon card container
   const pokemonWrapper = makeElement("div", { className: "pokemon-card" });
-  pokemonWrapper.dataset.name = pokemon.name;
   pokemonWrapper.style.background =
     typeGradients[pokemon.types[0].type.name].card;
 

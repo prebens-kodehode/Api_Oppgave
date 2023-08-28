@@ -8,7 +8,7 @@ import {
   pageButtons,
 } from "./htmlElements.js";
 import { renderPokemonList } from "./pages/pokemonList.js";
-import { updateClasses, delay, cardsFadeOut } from "./utils/functions.js";
+import { cardsFadeOut, loadingAnimation } from "./utils/functions.js";
 
 // API constants:
 const pokemonsUrl = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=649";
@@ -114,5 +114,7 @@ async function initializeApp() {
   await fetchAllPokemonDetails();
   handlePage(1);
 }
+
+loadingAnimation();
 
 initializeApp();
