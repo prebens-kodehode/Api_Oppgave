@@ -111,7 +111,7 @@ main {
 #loading-svg {
   width: 10rem;
   height: 10rem;
-  margin: 45svh auto;
+  margin: 30svh auto;
   animation: spin 500ms infinite linear;
 }
 
