@@ -133,6 +133,7 @@ main {
   color: var(--main-color);
   cursor: pointer;
   will-change: transform;
+  transition: all 100ms;
 }
 
 .pokemon-title-container {
@@ -241,7 +242,7 @@ main {
   text-transform: capitalize;
   margin: 2rem;
   box-shadow: 0.4rem 0.4rem 1rem hsla(0, 0%, 13%, 0.9);
-  transition: all 500ms;
+  transition: all 100ms;
   will-change: transform;
 }
 

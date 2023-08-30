@@ -17,7 +17,6 @@ let pokemonDetailsData = []; // array to store details of all pokemon
 let currentPage = 1;
 let totalPages = "";
 
-
 // fetches all pokemon details and stores them in an array
 async function fetchAllPokemonDetails() {
   try {
@@ -88,7 +87,7 @@ function handleSearch() {
         details.name.includes(searchTerm)
       );
       renderSearchResults(searchResults);
-    }, 500);
+    }, 350);
   } else {
     handlePage(currentPage);
   }

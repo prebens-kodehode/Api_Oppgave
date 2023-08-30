@@ -8,7 +8,7 @@ const tiltEffectSettings = {
 
 export function tiltEventListeners(card) {
   card.addEventListener("mouseenter", cardMouseEnter);
-  card.addEventListener("mousemove", cardMouseMove);
+  card.addEventListener("mousemove", throttle(cardMouseMove, 25));
   card.addEventListener("mouseleave", cardMouseLeave);
 }
 
@@ -66,4 +66,24 @@ function setTransition(event) {
   card.transitionTimeoutId = setTimeout(() => {
     card.style.transition = "";
   }, tiltEffectSettings.speed);
+}
+
+function throttle(func, delay) {
+  // store the time of the last call
+  let lastCall = 0;
+
+  return function (...args) {
+    // get the current time
+    const now = new Date().getTime();
+
+    // check if current time is greater than the delay
+    if (!(now - lastCall >= delay)) return;
+
+    // ensure the function gets called with the correct context and arguments
+    const result = func.apply(this, args);
+
+    // update the timestamp
+    lastCall = now;
+    return result;
+  };
 }
