@@ -16,7 +16,7 @@ const itemsPerPage = 20;
 let pokemonDetailsData = []; // array to store details of all pokemon
 let currentPage = 1;
 let totalPages = "";
-let isLoading = false;
+
 
 // fetches all pokemon details and stores them in an array
 async function fetchAllPokemonDetails() {
@@ -42,7 +42,6 @@ async function renderPokemonCards(startIndex, endIndex) {
 
 // handles page navigation
 function handlePage(page) {
-  if (isLoading) return;
   currentPage = Math.min(Math.max(1, page), totalPages);
   pageIndex.textContent = `${currentPage}/${totalPages}`;
   const startIndex = (currentPage - 1) * itemsPerPage;
