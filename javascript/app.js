@@ -8,7 +8,11 @@ import {
   pageButtons,
 } from "./htmlElements.js";
 import { renderPokemonList } from "./pages/pokemonList.js";
-import { cardsFadeOut, loadingAnimation } from "./utils/functions.js";
+import {
+  cardsFadeOut,
+  loadingAnimation,
+  updateClasses,
+} from "./utils/functions.js";
 
 // API constants:
 const pokemonsUrl = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=649";
@@ -45,6 +49,11 @@ function handlePage(page) {
   pageIndex.textContent = `${currentPage}/${totalPages}`;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+  previousPage.classList.remove("disabled");
+  nextPage.classList.remove("disabled");
+  currentPage === 1
+    ? previousPage.classList.add("disabled")
+    : currentPage === totalPages && nextPage.classList.add("disabled");
   renderPokemonCards(startIndex, endIndex);
 }
 

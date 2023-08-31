@@ -204,6 +204,19 @@ main {
   font-weight: 600;
 }
 
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.disabled:hover {
+  transform: scale(1);
+}
+
+.disabled:active {
+  transform: scale(1);
+}
+
 /* modal section */
 #modal {
   position: fixed;
